@@ -2,6 +2,7 @@ const express = require('express')
 const serverless = require('serverless-http')
 const cors = require('cors')
 const routes = require('../routes')
+const mongoose = require('mongoose')
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -14,6 +15,16 @@ const corsOptions = {
 }
 
 const app = express()
+
+mongoose.connect( process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+})
+
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose is connected!!!')
+})
 
 app.use(cors(corsOptions))
 

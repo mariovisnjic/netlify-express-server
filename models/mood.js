@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 
 //SCHEMA
 const Schema = mongoose.Schema
-const UserSchema = new Schema({
-    fullname: String,
-    date: {
-        type: String,
-        default: Date.now()
-    }
-})
+
+const MoodSchema = new Schema(
+    {
+        fullname: mongoose.Schema.Types.String
+    },
+    {collection: 'Mood', versionKey: false}
+)
 
 //MODEL
-const User = mongoose.model('User', UserSchema)
+const Mood = mongoose.model('Mood', MoodSchema)
 
-module.exports = User
+module.exports = Mood
