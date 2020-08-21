@@ -5,7 +5,12 @@ const Schema = mongoose.Schema
 
 const MoodSchema = new Schema(
     {
-        fullname: mongoose.Schema.Types.String
+        physical: mongoose.Schema.Types.Number,
+        emotional: mongoose.Schema.Types.Number,
+        focus: mongoose.Schema.Types.Number,
+        day: mongoose.Schema.Types.Number,
+        hour: mongoose.Schema.Types.Number,
+        fullDate: mongoose.Schema.Types.Date
     },
     {collection: 'Mood', versionKey: false}
 )
