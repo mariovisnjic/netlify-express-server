@@ -2,16 +2,26 @@ const router = require('express').Router();
 const Mood = require('../../models/mood')
 require('dotenv').config()
 
-router.get('/', (req, res) => {
+router.get('/average', (req, res) => {
+    const limit = Number(req.query.limit)
+
     Mood.aggregate(
-        [{
-            "$group": {
-                "_id": null,
-                "physical": {"$avg": "$physical"},
-                "emotional": {"$avg": "$emotional"},
-                "focus": {"$avg": "$focus"}
+        [
+            {
+                $sort: {_id: -1}
+            },
+            {
+                $limit: limit
+            },
+            {
+                $group: {
+                    "_id": null,
+                    "physical": {$avg: "$physical"},
+                    "emotional": {$avg: "$emotional"},
+                    "focus": {$avg: "$focus"}
+                }
             }
-        }], function (err, data) {
+        ], function (err, data) {
             if (err) {
                 return res.json({
                     success: false,
